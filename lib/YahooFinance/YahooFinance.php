@@ -17,7 +17,7 @@ class YahooFinance {
 		}
 	}
 
-	public function getHistoricalData($symbol, $startDate, $endDate, $format='json') {
+	public function getHistoricalData($symbol, $startDate, $endDate) {
 		if (is_object($startDate) && get_class($startDate) == 'DateTime') {
 			$startDate = $this->dateToDBString($startDate);
 		}
@@ -31,7 +31,16 @@ class YahooFinance {
 		return $this->execQuery($options);
 	}
 
+	public function getQuotes($symbols) {
+		if (is_string($symbols)) {
+			$symbols = array($symbols);
+		}
 
+		$options = $this->options;
+		$options['q'] = "select * from yahoo.finance.quotes where symbol in ('" . implode("','", $symbols) . "')";
+		
+		return $this->execQuery($options);
+	}
 
 	private function execQuery($options) {
 		$yql_query_url = $this->getUrl($options);
