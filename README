@@ -1,0 +1,20 @@
+# PHP YQL Geo Locator
+
+Simple library for getting stock information using the YQL API on yahoo.finance tables
+
+## Download
+
+    $ git clone git://github.com/aygee/php-yql-finance
+
+## Setup
+
+    require 'php-yql-finance/lib/YahooFinance/YahooFinance.php';
+
+    $yf = new YahooFinance;
+
+## Usage
+
+   $historicaldata = $yf->getHistoricalData('ASX', '2012-01-01', '2012-01-31');
+   $quote          = $yf->getQuotes('ASX');	   		// single quote
+   $quotes	   = $yf->getQuotes(array('ASX', 'WOW'));	// multiple quotes
+
