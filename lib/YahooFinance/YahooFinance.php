@@ -42,6 +42,17 @@ class YahooFinance {
 		return $this->execQuery($options);
 	}
 
+	public function getQuotesList($symbols) {
+		if (is_string($symbols)) {
+			$symbols = array($symbols);
+		}
+
+		$options = $this->options;
+		$options['q'] = "select * from yahoo.finance.quoteslist where symbol in ('" . implode("','", $symbols) . "')";
+		
+		return $this->execQuery($options);
+	}
+
 	private function execQuery($options) {
 		$yql_query_url = $this->getUrl($options);
 		$session = curl_init($yql_query_url);  
