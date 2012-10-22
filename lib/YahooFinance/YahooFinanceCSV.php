@@ -16,20 +16,19 @@ class YahooFinanceCSV {
 		
 		if (is_string($startdate) && !empty($startdate)) {
 			$startdate = new DateTime($startdate);
-			$url .= "&a=" . $startdate->format('m');  // start month
-			$url .= "&b=" . $startdate->format('d');  // start day
-			$url .= "&c=" . $startdate->format('y');  // start year
+			$url .= "&a=" . ($startdate->format('n')-1); // start month -1
+			$url .= "&b=" . $startdate->format('j');     // start day
+			$url .= "&c=" . $startdate->format('y');     // start year
 		}
 
 		if (is_string($enddate) && !empty($enddate)) {
 			$enddate = new DateTime($enddate);
-			$url .= "&d=" . $enddate->format('m');    // end month
-			$url .= "&e=" . $enddate->format('d');    // end day
-			$url .= "&f=" . $enddate->format('y');    // end year
+			$url .= "&d=" . ($enddate->format('n')-1);   // end month - 1 
+			$url .= "&e=" . $enddate->format('j');       // end day
+			$url .= "&f=" . $enddate->format('y');       // end year
 		}
 
 		$url .= "&g=" . $freq;
-
 		return $this->run($url);
 	}
 
