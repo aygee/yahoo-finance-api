@@ -33,8 +33,16 @@ class YahooFinanceCSV {
 	}
 
 	private function run($url){
-		$session = curl_init($url);
-		curl_setopt($session, CURLOPT_RETURNTRANSFER,true);      
-		return curl_exec($session);    		
+		$handle = curl_init($url);
+		curl_setopt($handle, CURLOPT_RETURNTRANSFER,true);
+		$response = curl_exec($handle);
+
+		$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+		if ($httpCode == 404) {
+			return false;
+		} else {
+			curl_close($handle);
+			return $response;
+		}
 	}
 }
